@@ -1,5 +1,5 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import positionReducer from '../features/position/positionSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import positionReducer from "../features/position/positionSlice";
 
 export const store = configureStore({
   reducer: {

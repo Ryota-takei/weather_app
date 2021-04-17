@@ -33,7 +33,6 @@ export const useGetWeatherInformation: any = () => {
       throw e;
     }
   };
-  console.log(currentWeather);
 
   return { getWeatherInformation };
 };

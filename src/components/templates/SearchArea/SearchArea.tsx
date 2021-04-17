@@ -67,11 +67,9 @@ export const SearchArea: React.FC = memo(() => {
         } finally {
       dispatch(setInputAreaName(address));
       setAddress("");
-      console.log(wetherInformation);
     }
   };
 
-  console.log(wetherInformation);
   return (
     <Container>
       <div className={styles.search_area}>

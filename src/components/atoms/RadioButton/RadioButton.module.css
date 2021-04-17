@@ -1,0 +1,20 @@
+.btn_name {
+  display: inline;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+}
+
+.disabled_btn_name {
+  display: inline;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+  opacity: 0.6;
+}
+
+.radio_input {
+  margin-left: 10px;
+}

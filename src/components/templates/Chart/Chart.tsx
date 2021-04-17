@@ -1,4 +1,4 @@
-import { useDataTemperature } from "../../hooks/useDataTemperature";
+import styles from "./Chart.module.css";
 import {
   LineChart,
   Line,
@@ -10,13 +10,24 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { memo } from "react";
 
-export const ChartTemperatureForecast = () => {
-  const { data } = useDataTemperature();
+type TemperatureData = {
+  name: string;
+  気温?: string;
+  湿度?: string;
+}[];
+
+type Props = {
+  value: string;
+  data: TemperatureData;
+};
+
+export const Chart: React.VFC<Props> = memo((props) => {
+  const { data, value } = props;
 
   return (
-    <div className="chart">
-      <p>１時間ごとの予測</p>
+    <div className={styles.chart}>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart
           width={500}
@@ -33,9 +44,9 @@ export const ChartTemperatureForecast = () => {
           <XAxis dataKey="name">
             <Label value="時刻" offset={1} position="bottom" />
           </XAxis>
-          <YAxis dataKey="温度" type="number">
+          <YAxis dataKey={value} type="number">
             <Label
-              value="気温"
+              value={value}
               position="insideLeft"
               textAnchor="middle"
               angle={-90}
@@ -45,7 +56,7 @@ export const ChartTemperatureForecast = () => {
           <Legend verticalAlign="top" height={36} />
           <Line
             type="monotone"
-            dataKey="温度"
+            dataKey={value}
             stroke="#48484a"
             stroke-width="3"
           />
@@ -55,4 +66,4 @@ export const ChartTemperatureForecast = () => {
       </ResponsiveContainer>
     </div>
   );
-};
+});

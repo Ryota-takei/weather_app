@@ -1,62 +1,58 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Stack } from "@chakra-ui/react";
-import { Map } from "./components/templates/Map";
-import { CurrentWeather } from "./components/templates/CurrentWeather";
-import { ChartTemperatureForecast } from "./components/templates/ChartTemperatureForecast";
-import { Radio } from "@chakra-ui/react";
-import { ChartHumidityForecast } from "./components/templates/ChartHumidityForecast";
-import {
-  selectCurrentWeather,
-} from "./features/position/positionSlice";
-import { WeekForecast } from "./components/templates/WeekForecast";
-import { useGetCurrentPosition } from "./hooks/useGetCurrentPosition";
+import { Container } from "@chakra-ui/react";
 
+import { SearchArea } from "./components/templates/SearchArea/SearchArea";
+import { CurrentWeather } from "./components/templates/CurrentWeather/CurrentWeather";
+import { Chart } from "./components/templates/Chart/Chart";
+import { useDataTemperature } from "./hooks/useDataTemperature";
+import { useDataHumidity } from "./hooks/useDataHumidity";
+import { WeekForecast } from "./components/templates/WeekForecast/WeekForecast";
+import { useGetCurrentPosition } from "./hooks/useGetCurrentPosition";
+import { SwitchRadioButton } from "./components/molecules/SwitchRadioButton/SwitchRadioButton";
+import styles from "./App.module.css";
+
+import {useSelector } from "react-redux";
+import {selectCurrentWeather, selectPosition} from "../src/features/position/positionSlice"
+import { useGetWeatherInformation } from "./hooks/useGetWeatherInformation";
 
 export const App: React.FC = () => {
-  const currentWeather = useSelector(selectCurrentWeather);
-  const [val, setVal] = useState("");
-  const {getCurrentPosition} =  useGetCurrentPosition();
-  console.log(currentWeather);
+  const { getCurrentPosition } = useGetCurrentPosition();
+  const [val, setVal] = useState(true);
+  const { temperatureData } = useDataTemperature();
+  const { humidityData } = useDataHumidity();
+  const onClickChange = () => setVal(!val);
+  const currentPosition = useSelector(selectPosition)
+  const wetherInformation = useSelector(selectCurrentWeather)
+  const {getWeatherInformation} = useGetWeatherInformation();
+
+  console.log(wetherInformation)
 
   useEffect(() => {
     getCurrentPosition();
   }, []);
 
+  useEffect(() => {
+    getWeatherInformation();
+  },[currentPosition])
+  
 
   return (
-    <div className="App">
-      <Map />
-      <CurrentWeather />
-
-      <Stack spacing={10} direction="row">
-        <Radio
-          value="気温"
-          isDisabled={val === "気温"}
-          isChecked={val === "気温"}
-          onChange={() => {
-            setVal("気温");
-          }}
-        >
-          気温
-        </Radio>
-        <Radio
-          value="湿度"
-          isDisabled={val === "湿度"}
-          isChecked={val === "湿度"}
-          onChange={() => {
-            setVal("湿度");
-          }}
-        >
-          湿度
-        </Radio>
-      </Stack>
-      {val === "気温" ? (
-        <ChartTemperatureForecast />
-      ) : (
-        <ChartHumidityForecast />
-      )}
-      <WeekForecast />
-    </div>
+    <Container w="100%" maxW="850px" mx="auto" mt="12">
+      <SearchArea />
+      <div className={styles.chart_Wrapper}>
+        <div>
+          <CurrentWeather />
+          <WeekForecast />
+        </div>
+        <div className={styles.chart}>
+          <SwitchRadioButton val={val} onClick={onClickChange} />
+          {val ? (
+            <Chart data={temperatureData()} value="気温" />
+          ) : (
+            <Chart data={humidityData()} value="湿度" />
+          )}
+        </div>
+      </div>
+    </Container>
   );
 };

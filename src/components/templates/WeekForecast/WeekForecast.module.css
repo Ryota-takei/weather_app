@@ -1,0 +1,17 @@
+.week_forecast{
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: "Space Grotesk",Arial,sans-serif!important;
+  color: #48484a;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.weekForecasts_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}

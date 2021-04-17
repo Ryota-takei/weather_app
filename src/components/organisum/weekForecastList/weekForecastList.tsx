@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./weekForecastList.module.css"
 
 interface Props {
   tempMin?: number | undefined;
@@ -12,7 +13,7 @@ export const WeekForecastList: React.VFC<Props> = (props) => {
   const date = new Date();
   date.setDate(date.getDate() + num);
   return (
-    <div>
+    <div className={styles.container}>
       {date.getMonth() + 1 + "月" + date.getDate() + "日"}
       <img src={`http://openweathermap.org/img/wn/${src}.png`} />
       <p>

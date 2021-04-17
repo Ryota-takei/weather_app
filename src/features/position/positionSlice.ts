@@ -23,14 +23,15 @@ export const positionSlice = createSlice({
       state.currentPosition.latitude = action.payload.lat;
       state.currentPosition.longitude = action.payload.lng;
     },
-
-    setWetherInformation: (state, action) => {
-      state.wetherInformation = action.payload;
-    },
-
     setInputAreaName: (state, action) => {
       state.inputAreaName = action.payload;
     },
+    
+    setWetherInformation: (state, action) => {
+      state.wetherInformation = action.payload;
+      console.log("weather", state.wetherInformation)
+    },
+
   },
 });
 

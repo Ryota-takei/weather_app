@@ -29,7 +29,6 @@ export const positionSlice = createSlice({
     
     setWetherInformation: (state, action) => {
       state.wetherInformation = action.payload;
-      console.log("weather", state.wetherInformation)
     },
 
   },

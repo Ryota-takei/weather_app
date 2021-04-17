@@ -1,58 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useEffect, useState } from "react";
+import { Container } from "@chakra-ui/react";
 
-function App() {
+import { SearchArea } from "./components/templates/SearchArea/SearchArea";
+import { CurrentWeather } from "./components/templates/CurrentWeather/CurrentWeather";
+import { Chart } from "./components/templates/Chart/Chart";
+import { useDataTemperature } from "./hooks/useDataTemperature";
+import { useDataHumidity } from "./hooks/useDataHumidity";
+import { WeekForecast } from "./components/templates/WeekForecast/WeekForecast";
+import { useGetCurrentPosition } from "./hooks/useGetCurrentPosition";
+import { SwitchRadioButton } from "./components/molecules/SwitchRadioButton/SwitchRadioButton";
+import styles from "./App.module.css";
+
+import {useSelector } from "react-redux";
+import {selectCurrentWeather, selectPosition} from "../src/features/position/positionSlice"
+import { useGetWeatherInformation } from "./hooks/useGetWeatherInformation";
+
+export const App: React.FC = () => {
+  const { getCurrentPosition } = useGetCurrentPosition();
+  const [val, setVal] = useState(true);
+  const { temperatureData } = useDataTemperature();
+  const { humidityData } = useDataHumidity();
+  const onClickChange = () => setVal(!val);
+  const currentPosition = useSelector(selectPosition)
+  const wetherInformation = useSelector(selectCurrentWeather)
+  const {getWeatherInformation} = useGetWeatherInformation();
+
+  console.log(wetherInformation)
+
+  useEffect(() => {
+    getCurrentPosition();
+  }, []);
+
+  useEffect(() => {
+    getWeatherInformation();
+  },[currentPosition])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Container w="100%" maxW="850px" mx="auto" mt="12">
+      <SearchArea />
+      <div className={styles.chart_Wrapper}>
+        <div>
+          <CurrentWeather />
+          <WeekForecast />
+        </div>
+        <div className={styles.chart}>
+          <SwitchRadioButton val={val} onClick={onClickChange} />
+          {val ? (
+            <Chart data={temperatureData()} value="気温" />
+          ) : (
+            <Chart data={humidityData()} value="湿度" />
+          )}
+        </div>
+      </div>
+    </Container>
   );
-}
-
-export default App;
+};

@@ -1,0 +1,14 @@
+.button_wrapper{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hourly_header {
+  margin-top: 10px auto;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: "Space Grotesk",Arial,sans-serif!important;
+  color: #48484a;
+  text-align: center;
+}

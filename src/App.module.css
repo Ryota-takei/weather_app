@@ -1,0 +1,8 @@
+.chart_Wrapper {
+  display: flex;
+}
+
+.chart {
+  margin-top: 25px;
+  width: 100%;
+}

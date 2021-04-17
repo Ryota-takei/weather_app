@@ -1,0 +1,53 @@
+.current_weather {
+  margin-top: 25px;
+  width: 100%;
+}
+.current_time {
+  color: #eb6e4b;
+}
+
+.input_areaName {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+  margin-top: 0;
+}
+
+.img_wrapper {
+  display: flex;
+}
+
+.img_wrapper span {
+  font-weight: 100;
+  font-size: 36px;
+  font-weight: 100;
+  margin-right: 8pt;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+}
+
+.temperature_wrapper {
+  display: flex;
+}
+.temperature_wrapper span {
+  font-weight: 700;
+  font-size: 14px;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+  margin-right: 16px;
+}
+
+.wind_wrapper {
+  display: flex;
+  margin-top: 6px;
+  padding: 0 21px;
+  border-left: 1px solid #eb6e4b;
+}
+
+.wind_wrapper p {
+  font-size: 14px;
+  font-family: "Space Grotesk", Arial, sans-serif !important;
+  color: #48484a;
+  margin-right: 16px;
+}

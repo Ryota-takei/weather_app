@@ -24,7 +24,6 @@ export const SearchArea: React.FC = memo(() => {
   const [marker, setMarker] = useState<any>("");
   const { getWeatherInformation } = useGetWeatherInformation();
   const API_GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
-  const wetherInformation = useSelector(selectCurrentWeather);
 
   const handleApiLoaded: (obj: any) => void = (obj) => {
     setMap(obj.map);

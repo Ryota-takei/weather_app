@@ -12,12 +12,16 @@ export const useGetCurrentPosition = () => {
       fetch(url, { method: "post" })
         .then((res) => res.json())
         .then((val) => {
-          const position = { lat: val.location.lat, lng: val.location.lng };
-          dispatch(setPosition(position));
-          getWeatherInformation();
+          if(val.accuracy < 10000) {
+            const position = { lat: val.location.lat, lng: val.location.lng };
+            dispatch(setPosition(position));
+            getWeatherInformation();
+          }
         })
         .catch((e) => {
-          alert("Map情報取得エラーが発生しました。通信環境のご確認もしくは時間を置いて改めてご利用ください");
+          alert(
+            "Map情報取得エラーが発生しました。通信環境のご確認もしくは時間を置いて改めてご利用ください"
+          );
         });
     } else {
       alert(

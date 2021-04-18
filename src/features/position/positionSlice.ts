@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
-
 interface PositionState {
   currentPosition: { latitude: number; longitude: number };
   inputAreaName: string;
@@ -30,7 +29,6 @@ export const positionSlice = createSlice({
     setWetherInformation: (state, action) => {
       state.wetherInformation = action.payload;
     },
-
   },
 });
 

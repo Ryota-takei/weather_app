@@ -10,7 +10,6 @@ import {
   selectPosition,
   setPosition,
   setInputAreaName,
-  selectCurrentWeather,
 } from "../../../features/position/positionSlice";
 
 export const SearchArea: React.FC = memo(() => {

@@ -26,7 +26,7 @@ export const positionSlice = createSlice({
     setInputAreaName: (state, action) => {
       state.inputAreaName = action.payload;
     },
-    
+
     setWetherInformation: (state, action) => {
       state.wetherInformation = action.payload;
     },

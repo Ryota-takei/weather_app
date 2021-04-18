@@ -17,7 +17,7 @@ export const useGetCurrentPosition = () => {
           getWeatherInformation();
         })
         .catch((e) => {
-          alert(e.message);
+          alert("Map情報取得エラーが発生しました。通信環境のご確認もしくは時間を置いて改めてご利用ください");
         });
     } else {
       alert(

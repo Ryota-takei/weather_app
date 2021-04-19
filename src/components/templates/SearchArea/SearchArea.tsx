@@ -5,12 +5,11 @@ import { Button, Container, Input } from "@chakra-ui/react";
 import GoogleMapReact from "google-map-react";
 
 import styles from "./SearchArea.module.css";
-import { useGetWeatherInformation } from "../../../hooks/useGetWeatherInformation";
 import {
   selectPosition,
   setPosition,
   setInputAreaName,
-  selectCurrentWeather,
+  fetchTasks,
 } from "../../../features/position/positionSlice";
 
 export const SearchArea: React.FC = memo(() => {
@@ -22,7 +21,6 @@ export const SearchArea: React.FC = memo(() => {
   const [map, setMap] = useState<any>("");
   const [maps, setMaps] = useState<any>("");
   const [marker, setMarker] = useState<any>("");
-  const { getWeatherInformation } = useGetWeatherInformation();
   const API_GOOGLE_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
 
   const handleApiLoaded: (obj: any) => void = (obj) => {
@@ -32,6 +30,9 @@ export const SearchArea: React.FC = memo(() => {
   };
 
   const searchAddress = () => {
+    if(address === ""){
+      return;
+    }
     try {
       geocoder.geocode(
         {
@@ -53,8 +54,9 @@ export const SearchArea: React.FC = memo(() => {
               lat: results[0].geometry.location.lat(),
               lng: results[0].geometry.location.lng(),
             }
+            const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${searchPosition.lat}&lon=${searchPosition.lng}&units=metric&lang=ja&appid=${process.env.REACT_APP_OPENWEATHER_API_KEY}`;
             dispatch(setPosition(searchPosition));
-            getWeatherInformation();
+            dispatch(fetchTasks(url));
 
           }
         }

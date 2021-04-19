@@ -11,28 +11,16 @@ import { useGetCurrentPosition } from "./hooks/useGetCurrentPosition";
 import { SwitchRadioButton } from "./components/molecules/SwitchRadioButton/SwitchRadioButton";
 import styles from "./App.module.css";
 
-import {useSelector } from "react-redux";
-import {selectPosition} from "../src/features/position/positionSlice"
-import { useGetWeatherInformation } from "./hooks/useGetWeatherInformation";
-
 export const App: React.FC = () => {
   const { getCurrentPosition } = useGetCurrentPosition();
   const [val, setVal] = useState(true);
   const { temperatureData } = useDataTemperature();
   const { humidityData } = useDataHumidity();
   const onClickChange = () => setVal(!val);
-  const currentPosition = useSelector(selectPosition)
-  const {getWeatherInformation} = useGetWeatherInformation();
-
-
+  
   useEffect(() => {
     getCurrentPosition();
   }, []);
-
-  useEffect(() => {
-    getWeatherInformation();
-  },[currentPosition])
-
 
   return (
     <Container w="100%" maxW="850px" mx="auto" mt="12">

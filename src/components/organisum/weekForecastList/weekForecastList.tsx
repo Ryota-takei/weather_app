@@ -15,7 +15,7 @@ export const WeekForecastList: React.VFC<Props> = (props) => {
   return (
     <div className={styles.container}>
       {date.getMonth() + 1 + "月" + date.getDate() + "日"}
-      <img src={`http://openweathermap.org/img/wn/${src}.png`} />
+      <img src={`http://openweathermap.org/img/wn/${src}.png`} alt="天気イメージ"/>
       <p>
         {Math.round(tempMax)} / {Math.round(tempMin)}℃
       </p>

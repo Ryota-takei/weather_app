@@ -37,6 +37,9 @@ export const SearchArea: React.VFC = () => {
   };
 
   const searchAddress = () => {
+    if(address === ""){
+      return;
+    }
     try {
       geocoder.geocode(
         {

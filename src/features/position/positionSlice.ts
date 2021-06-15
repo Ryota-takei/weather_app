@@ -1,26 +1,19 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
 import { RootState } from "../../app/store";
+import { WeatherData } from "../../types/WeatherInformation";
 
 interface PositionState {
   currentPosition: { latitude: number; longitude: number };
   inputAreaName: string;
-  wetherInformation: any;
+  wetherInformation: WeatherData | undefined;
 }
 
 const initialState: PositionState = {
   currentPosition: { latitude: 35.7022589, longitude: 139.7744733 },
   inputAreaName: "",
-  wetherInformation: "",
+  wetherInformation: undefined,
 };
-
-export const fetchTasks = createAsyncThunk(
-  "position/useURL",
-  async (url: any) => {
-    const res = await fetch(url);
-    const data = await res.json();
-    return data;
-  }
-);
 
 export const positionSlice = createSlice({
   name: "position",
@@ -38,14 +31,6 @@ export const positionSlice = createSlice({
     setWetherInformation: (state, action) => {
       state.wetherInformation = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchTasks.fulfilled, (state, action) => {
-      state.wetherInformation = action.payload;
-    })
-    .addCase(fetchTasks.rejected, () => {
-      alert("一時的にお天気情報が取得できません。時間を置いて再度お試しくださいませ")
-    })
   },
 });
 

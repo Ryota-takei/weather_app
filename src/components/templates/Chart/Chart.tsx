@@ -14,7 +14,7 @@ import { memo } from "react";
 
 type TemperatureData = {
   name: string;
-  気温?: string;
+  気温?: number;
   湿度?: string;
 }[];
 

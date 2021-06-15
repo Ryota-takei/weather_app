@@ -2,19 +2,22 @@ import { useSelector } from "react-redux";
 
 import { selectCurrentWeather } from "../../../features/position/positionSlice";
 import { WeekForecastList } from "../../organisum/weekForecastList/weekForecastList";
-import { useWeekDate } from "../../../hooks/useWeekDate";
 import styles from "./WeekForecast.module.css";
-import { memo } from "react";
+import { WeekForecastData } from "../../../types/WeekForecastData";
+import { Box, Flex } from "@chakra-ui/layout";
+import { weekDates } from "../../../function/weekDate";
 
-export const WeekForecast: React.VFC = memo(() => {
-  const {weekDates} = useWeekDate();
+export const WeekForecast: React.VFC = () => {
   const currentWeather = useSelector(selectCurrentWeather);
-  const weekForecasts: [] = currentWeather ? currentWeather.daily : weekDates();
+  const weekForecasts: WeekForecastData[] = currentWeather?.daily
+    ? currentWeather.daily
+    : weekDates();
+
   return (
-    <div className={styles.container}>
+    <Box>
       <p className={styles.week_forecast}> 8日間の天気</p>
-      <div className={styles.weekForecasts_wrapper}>
-        {weekForecasts.map((weekForecast: any, index) => (
+      <Flex flexWrap="wrap" justifyContent="center" >
+        {weekForecasts?.map((weekForecast, index) => (
           <WeekForecastList
             key={index}
             num={index}
@@ -23,7 +26,7 @@ export const WeekForecast: React.VFC = memo(() => {
             src={weekForecast.weather[0].icon}
           />
         ))}
-      </div>
-    </div>
+      </Flex>
+    </Box>
   );
-});
+};

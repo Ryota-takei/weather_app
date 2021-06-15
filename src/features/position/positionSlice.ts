@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { RootState } from "../../app/store";
+import { WeatherData } from "../../types/WeatherInformation";
 
 interface PositionState {
   currentPosition: { latitude: number; longitude: number };
   inputAreaName: string;
-  wetherInformation: any;
+  wetherInformation: WeatherData | undefined;
 }
 
 const initialState: PositionState = {
   currentPosition: { latitude: 35.7022589, longitude: 139.7744733 },
   inputAreaName: "",
-  wetherInformation: "",
+  wetherInformation: undefined,
 };
 
 export const positionSlice = createSlice({

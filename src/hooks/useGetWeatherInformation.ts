@@ -11,20 +11,15 @@ export const useGetWeatherInformation: any = () => {
 
   const getWeatherInformation = async () => {
     try {
-      const res = await getInfo();
-      const data = await res.json();
-      dispatch(setWetherInformation(data));
-    } catch (err) {
-
-    }
-  };
-
-  const getInfo = async () => {
-    try {
       const res = await fetch(url);
-      return res;
-    } catch (e) {
-      throw e;
+      if (res) {
+        const data = await res.json();
+        dispatch(setWetherInformation(data));
+      } else {
+        throw new Error("エラーが発生")
+      }
+    } catch (err) {
+      alert("エラーが発生しました");
     }
   };
 
